@@ -1,0 +1,16 @@
+* {
+    box-sizing: border-box;
+}
+
+.footer{
+    margin-top: auto;
+    background-color:black;
+    color: rgb(0, 0, 0);
+    display: flex;
+    justify-content: space-between; 
+    align-items: center;
+    position: sticky;
+    top: 0;
+    gap: 2rem;
+    padding: 0 1rem;
+}
