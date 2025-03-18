@@ -1,0 +1,43 @@
+h3 {
+    text-align: center;
+    font-size: 30px;
+    font-weight: bold;
+
+
+}
+.UserDetailTable {
+    display: flex;
+    flex-direction: column;
+    margin-top: 5px;
+    width: 100%;
+    align-items: center;
+}
+
+tr {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    color: #000000;   
+}
+
+th{
+    padding-left: 40px;
+    padding-right: 40px;
+    text-align: center;
+}
+
+td {
+    padding-left: 50px;
+    padding-right: 60px;
+    text-align: center;
+}
+
+.faTrash {
+    margin: auto;
+    display: block;
+    padding: 1px;
+}
+
+.faPenToSquare {
+    margin: auto;
+    display: block;
+    padding: 1px;
+}

@@ -6,11 +6,18 @@
     margin-top: auto;
     background-color:black;
     color: rgb(0, 0, 0);
-    display: flex;
+    display: block;
     justify-content: space-between; 
     align-items: center;
     position: sticky;
     top: 0;
     gap: 2rem;
     padding: 0 1rem;
+    text-align: right;
+    font-weight: bold;
+}
+
+a {
+    color: rgb(253, 253, 253);
+
 }
