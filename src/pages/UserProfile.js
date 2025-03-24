@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import '../UserProfile.css';
+import '../css/UserProfile.css';
 
 class UserProfile extends Component{
         constructor(props) {
@@ -34,31 +34,27 @@ render () {
     return (
         <>
             <h1>Profile</h1>
-            
+            <div className="profile-image">
             <form className="userProfileForm" onSubmit={this.handleSubmit}>
                 <div className="form-group">   
-                <label htmlFor="name"> Name: <span style={{ color: "red" }}>*</span> </label>
+                    <label htmlFor="name"> Name: <span style={{ color: "red" }}>*</span> </label>
                     <input type="text" className="form-control" id="name" name="name" placeholder="Name" />
-                </div>
-                <div className="form-group">
+        
                     <label htmlFor="bithday"> Birthday: <span style={{ color: "red" }}>*</span> </label>
                     <input type="text" className="form-control" id="birthday" name="birthday" placeholder="Birthday" />
-                </div>
-                <div className="form-group">
+                
                     <label htmlFor="email"> Email: <span style={{ color: "red" }}>*</span> </label>
                     <input type="text" className="form-control" id="email" name="email" placeholder="Email" />
                     {this.state.errors.email && <p style={{ color: "red" }}>{this.state.errors.email}</p>}
-                </div>
-                <div className="form-group">
+          
                     <label htmlFor="password"> Password: <span style={{ color: "red" }}>*</span> </label>
                     <input type="text" className="form-control" id="password" name="password" placeholder="Password" />
                 </div>
-                <div className="row">
-                <div className="col-4">
+                <div className="profile-save-bt">
                     <button type="submit" className="savebt"> Save </button>
                 </div>
-                </div>
             </form> 
+            </div>
         </>
         )
 

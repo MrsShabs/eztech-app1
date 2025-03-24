@@ -1,6 +1,8 @@
 import React, { useState } from 'react';
+import '../css/UserLogIn.css';
 
-function UserLogInC({ handleSubmit }) {
+
+function UserLogIn({ handleSubmit }) {
     const [users, setUsers] = useState({ email: '', password: '' });
 
 
@@ -9,15 +11,15 @@ function UserLogInC({ handleSubmit }) {
             <form className="StreamList" onSubmit={handleSubmit}>
                 <div>
                     <div className="container-flexible">
-                        <div className="emailTextBox">
+                        <div className="textBox">
                             <label htmlFor="email"> Email: <span style={{ color: "red" }}>*</span> </label>
                             <input type="text" id="email" name="email" className="inputEmailBox" placeholder="E-mail" onChange={(e) => setUsers(e.target.value)} />
                         </div>
-                        <div>
+                        <div calssName ="textBox">
                             <label htmlFor="password"> Password: <span style={{ color: "red" }}>*</span> </label>
                             <input type="text" id="password" name="password" placeholder="Password" onChange={(e) => setUsers(e.target.value)} />
                         </div>
-                        <button type="submit">Save</button>
+                        <button className="log-in-btn">Save</button>
                     </div>
                 </div>
             </form>
@@ -25,4 +27,4 @@ function UserLogInC({ handleSubmit }) {
     );
 }
 
-export default UserLogInC;  //  closing tag for UserLogInc
+export default UserLogIn;  //  closing tag for UserLogInc

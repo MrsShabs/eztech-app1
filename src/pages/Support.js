@@ -1,5 +1,5 @@
 import React from "react";
-import "../Support.css";
+import "../css/Support.css";
 
 export default function Support() {
 

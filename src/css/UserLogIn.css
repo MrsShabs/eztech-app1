@@ -1,0 +1,19 @@
+input{
+    align-items: right;
+    color: white;
+}
+
+.log-in-btn {
+    padding: 12px 21px;
+    background-color: rgb(145, 32, 32);
+    border: none;
+    font-weight: bold;
+    color: #ffffff;
+    border-radius: 0.5rem;
+    cursor: pointer;
+    font-size: 15px;
+    display: flex;
+    align-items: center;
+    margin-left: 150px;
+        
+}

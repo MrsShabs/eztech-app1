@@ -1,7 +1,7 @@
 import React from 'react'; 
-import UserDetailC from './UserDetailC.js';
-import UserLogInC from './UserLogInC.js';
-import '../StreamList.css';
+import UserDetail from '../Components/UserDetail.js';
+import UserLogIn from '../Components/UserLogIn.js';
+import '../css/StreamList.css';
 
 class StreamList extends React.Component {
     constructor(props) {
@@ -51,10 +51,10 @@ class StreamList extends React.Component {
         return (
             <>
                 <div>
-                    <UserLogInC user={this.state.users} handleSubmit={this.handleSubmit} />
+                    <UserLogIn user={this.state.users} handleSubmit={this.handleSubmit} />
                 </div>
                 <div>
-                    <UserDetailC users={this.state.users} deleteCallBack={this.handleDelete} editUserDetail={this.editUserDetail} />
+                    <UserDetail users={this.state.users} deleteCallBack={this.handleDelete} editUserDetail={this.editUserDetail} />
                 </div>
             </>
         ); // return closing tag

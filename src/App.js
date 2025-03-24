@@ -1,9 +1,9 @@
 import React, {Component} from 'react';
-import { BrowserRouter, Routes, Route } from 'react-router-dom';
+import { Routes, Route } from 'react-router-dom';
 import Navbar from './Navbar';
 import About from './pages/About.js';
 import Cart from './pages/Cart.js';
-import Movie from './pages/Movie.js';
+import Movie from './pages/Movies.js';
 import Lists from './pages/Lists.js';
 import StreamList from './pages/StreamList.js';
 import UserProfile from './pages/UserProfile.js';
@@ -17,12 +17,32 @@ class App extends Component {
   constructor(props) {
     super(props);
      this.state = {
-      users: []
+      users: [], 
+      movies: [],
+      results: [],
+      cart: []
     };
 
   }
-
-
+  componentDidMount() {
+    const savedUsers = JSON.parse(localStorage.getItem('users')) || this.state.users;
+    this.setState({ users: savedUsers });
+  }
+  
+  saveData = () => {
+    localStorage.setItem('users', JSON.stringify(this.state.users));
+    };
+  /*
+  addNewList = (lists) => {
+    this.setState(
+      (prevState) => ({
+        lists: [...prevState.lists, list].sort((a,b) =>
+          a.name.localeCompare(b.name))
+      }),
+      this.saveData
+    );
+  }; */
+  
 render () {
   return (
     <>
@@ -50,15 +70,3 @@ render () {
 } //class App 
 export default App;
 
-
-/*
-  addUser = (user) => {
-    this.setState(
-      (prevState) => ({
-        user: [...prevState.user, user].sort((a,b) =>
-          a.email.localeCompare(b.email))
-      }),
-      this.saveData
-    );
-  };
-*/

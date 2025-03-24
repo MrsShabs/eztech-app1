@@ -2,6 +2,8 @@
     display: flex;
     flex-direction: column;
     align-items: center;
+    margin-top: 100px;
+    padding-top: 50px;
 }
 
 .StreamList label {
@@ -18,29 +20,8 @@
     border: 5px solid rgba(147, 32, 32, 0.808);
 }
 
-  
-.StreamList button {
-    padding: 12px 21px;
-    background-color: rgb(145, 32, 32);
-    border:  rgba(147, 32, 32, 0.876);
-    font-weight: bold;
-    color: #ffffff;
-    margin-left: 130px;
-    border-radius: 0.5rem;
-    cursor: pointer;
-    margin-top: 30px;
-    font-size: 15px;
-    
-}
-
-/* when refering to class use .*/
-.inputEmailBox {
-    margin-left: 33px;
-}
-
 .container-flexible {
-    margin-top: 100px;
-    padding-top: 50px;
+    
     background-image: url("/public/assets/bgimage.svg");
     background-size: 500px;
     background-repeat: no-repeat;
@@ -51,6 +32,6 @@
     padding-left: 150px;
     padding-right: 150px;
     position: center;
-    position: sticky;
+    
     
 }
