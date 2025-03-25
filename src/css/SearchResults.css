@@ -1,0 +1,18 @@
+.search-results-movie-title {
+    font-weight: bold;
+    text-align: center;
+    width: 500px;
+    height: 15px;
+}
+
+.search-results-movie-vote{
+    text-align: center;
+    width: 500px;
+    height: 15px;
+}
+
+.search-results-movie-overview{
+    width: 500px;
+    height: 70px;
+    padding: 5px;
+}

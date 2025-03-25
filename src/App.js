@@ -4,6 +4,7 @@ import Navbar from './Navbar';
 import About from './pages/About.js';
 import Cart from './pages/Cart.js';
 import Movie from './pages/Movies.js';
+import SearchResults from './pages/SearchResults.js';
 import Lists from './pages/Lists.js';
 import StreamList from './pages/StreamList.js';
 import UserProfile from './pages/UserProfile.js';
@@ -20,6 +21,7 @@ class App extends Component {
       users: [], 
       movies: [],
       results: [],
+      list: [],
       cart: []
     };
 
@@ -32,6 +34,18 @@ class App extends Component {
   saveData = () => {
     localStorage.setItem('users', JSON.stringify(this.state.users));
     };
+
+
+  // funtion to take move and aded to the cart state 
+  addToCart = (movie) => {
+    this.setState (
+    (prevState) => ({     
+      cart: [...prevState.cart, movie] // forcing append to movies array right after what is in the list already 
+    })
+  );
+  console.log(this.state.cart)
+}
+  
   /*
   addNewList = (lists) => {
     this.setState(
@@ -51,9 +65,10 @@ render () {
     <Navbar />
       <Routes>
           <Route path="/" element={<StreamList />} />
-          <Route path="/movie" element={<Movie />} />
+          <Route path="/movie" element={<Movie addToCart={this.addToCart}/>} />
+          <Route path='/searchResults' element={<SearchResults />} />
           <Route path="/lists" element={<Lists />} />
-          <Route path="/cart" element={<Cart />} />
+          <Route path="/cart" element={<Cart cart={this.state.cart} />} />
           <Route path="/userProfile" element={<UserProfile />} />
           <Route path="/about" element={<About />} />
           <Route path="/support" element={<Support/>} />

@@ -2,17 +2,24 @@ import React, { useState, useEffect } from 'react';
 import Search from '../Components/Search.js';
 import '../css/Movies.css';
 
-function Movies() {
+function Movies({addToCart}) {
+    // state to hold movies 
     const [movies, setMovies] = useState([]);
+    // state to load fetch data 
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState(null);
     // to display search results in UI for user
     const [results, setResults] = useState([]);
+    // state to add movie to cart
+    const [cart, setCart] = useState([]);
+    //state to add movie to list
+    const [list, setList] = useState([]);
 
+    // default fetch
     useEffect(() => {
         const fetchData = async () => {
             try {
-                const response = await fetch('https://api.themoviedb.org/3/search/movie?api_key=0849a6e86fb90fea611af2a9738f9e14&query=star+wars');
+                const response = await fetch('https://api.themoviedb.org/3/search/movie?api_key=0849a6e86fb90fea611af2a9738f9e14&query=${query}');
                 if (!response.ok) {
                     throw new Error(`HTTP error! status: ${response.status}`);
                 }
@@ -28,6 +35,16 @@ function Movies() {
         fetchData();
     }, []);
 
+    // to add movie to the Cart 
+    /*const addToCart = (movie) => {
+        setCart([...cart, movie]);
+    };*/
+
+    // at to the list movie
+    const addToList = (movie) => {
+        setList ({...list, movie});
+    };
+
     if (loading) {
         return <div>Loading...</div>;
     }
@@ -38,26 +55,32 @@ function Movies() {
 
     return (
         <>
-         <div className="Movies">
+         <div className="container-fluid">
                 <div className="search-bar-container">
                     <Search setResults={setResults} />
                 </div>
             </div>
-        <ul>
+        
             {movies.map(movie => (
-                <div className="movie-info" key={movie.id}>
-                    <img 
-                        className="movie-page-posters" 
-                        src={`https://image.tmdb.org/t/p/w500${movie.poster_path}`}>    
-                    </img>
-                    <ul className="movie-page-li-title">{movie.title}</ul> 
-                    <ul className="movie-page-li-vote">Stars: {movie.vote_average}</ul>
-                </div> // Assuming the movie title is in movie.title
-            ))}
-            
-        </ul>
-           
-        </>
+                <div class="container-fluid">
+                    <div class="row">
+                        <div class="col-l-4" key={movie.id}>
+                            <img 
+                            className="img-responsive img-thumbnail" 
+                            src={`https://image.tmdb.org/t/p/w500${movie.poster_path}`}>    
+                            </img>
+                        <div class="col-l-4">{movie.title}</div> 
+                        <div class="col-l-4">Raitings: {movie.vote_average}</div>
+                    
+                    <button class="movies-bt"onClick={() => 
+                        addToList(movie)}>Add to List</button>
+                    <button class="movies-bt" onClick={() => 
+                        addToCart(movie)}>Add to Cart</button>
+                </div>
+                </div>
+                </div> 
+            ))}   
+      </>
     ); //return close bar
 } // Movies close bar
 

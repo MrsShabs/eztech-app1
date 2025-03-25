@@ -21,17 +21,14 @@
 }
 
 .container-flexible {
-    
     background-image: url("/public/assets/bgimage.svg");
     background-size: 500px;
     background-repeat: no-repeat;
     background-position: center;
     background-position-y: 0px;
-    padding-top: 250px;
+    padding-top: 220px;
     padding-bottom: 50px;
     padding-left: 150px;
     padding-right: 150px;
     position: center;
-    
-    
 }

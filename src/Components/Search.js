@@ -2,7 +2,6 @@ import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faMagnifyingGlass } from '@fortawesome/free-solid-svg-icons';
-import SearchResults from '../pages/SearchResults.js';
 import axios from 'axios';
 import '../css/Search.css';
 import '../css/Movies.css';
@@ -55,6 +54,10 @@ function Search() {
                 {results.length > 0 ? (
                     results.map((movie) => (
                 <div key={movie.id} >
+                    <img 
+                        className="movie-page-posters" 
+                        src={`https://image.tmdb.org/t/p/w500${movie.poster_path}`}>    
+                    </img>
                     <h3>{movie.title}</h3>
                     <p>{movie.overview}</p>
                 </div>

@@ -35,8 +35,8 @@ function UserDetail({ users, deleteCallBack, editUserDetail }) {
     return (
         <>
             <h3>User Details</h3>
-            <div>
-                <table className="UserDetailTable">
+            <div className="user-details-table">
+                <table className="user-details-table">
                     <thead>
                         <tr>
                             <th>Email</th>

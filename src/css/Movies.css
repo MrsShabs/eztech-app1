@@ -9,26 +9,24 @@
 
 }
 
-
-.movie-info {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-
-
+.movie-title{
+    padding: 5px;
 }
 
-.movie-page-posters{
-    width: "50px";
-    height: "150px";
-    margin-left: 10px;
-    margin-top: 30px;
-    display: block;
-}
-
-li.movie-page-li-title {
+.col-l-4{
     font-weight: bold;
-    padding-right: 300px;
-    text-align: center;
 }
-
+.movies-bt { 
+padding: 6px 5px;
+background-color: rgb(145, 32, 32);
+border: none;
+font-weight: bold;
+color: #ffffff;
+border-radius: 0.5rem;
+cursor: pointer;
+font-size: 15px;
+display: flex;
+align-items: left;
+margin-top: 5px;
+margin-bottom: 5px;
+}
