@@ -14,13 +14,26 @@ self.addEventListener("install", (event) => {
   );
 });
 
-// listen for request
+// listen for request when fetching data from TMDB
 self.addEventListener("fetch", (event) => {
-  event.respondWith(
-    caches.match(event.request).then((res) => {
-      return fetch(event.request).catch(() => caches.match("offline.html"));
-    })
-  );
+  if (event.request.url.includes("api.themoviedb.org")) {
+    event.respondWith(
+      caches.open(CACHE_NAME).then((cache) => {
+        return fetch(event.request)
+          .then((response) => {
+            cache.put(event.request, response.clone());
+            return response;
+          })
+          .catch(() => caches.match(event.request));
+      })
+    );
+  } else {
+    event.respondWith(
+      caches.match(event.request).then((res) => {
+        return fetch(event.request).catch(() => caches.match("offline.html"));
+      })
+    );
+  }
 });
 
 // actitivate the service worker

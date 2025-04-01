@@ -4,11 +4,12 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faStar } from '@fortawesome/free-solid-svg-icons';
 import '../css/Movie.css';
 
-function Movie({ addToCart, addToList }) {
+function Movie({ addToCart, addToList, showPopup }) {
     const [movies, setMovies] = useState([]);
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState(null);
-    const [results, setResults] = useState([]);
+    const [setResults] = useState([]);
+    
 
     useEffect(() => {
         const fetchData = async () => {
@@ -29,11 +30,13 @@ function Movie({ addToCart, addToList }) {
         fetchData();
     }, []);
 
+
     if (loading) return <div>Loading...</div>;
     if (error) return <div>Error: {error.message}</div>;
 
     return (
         <>
+            {showPopup && <div className="popup-message">Movie added to the list!</div>} {/* Pop-up message */}
             <div className="container-fluid">
                 <div className="search-bar-container">
                     <Search setResults={setResults} />
@@ -56,7 +59,7 @@ function Movie({ addToCart, addToList }) {
                                 </div>
                             </div>
                             <div className="d-flex justify-content-center">
-                                <button className="btn-movies" onClick={() => addToList(movie)}>Add to List</button>
+                                <button className="btn-movies" onClick={() => addToList(movie)}>Add to List</button> 
                                 <button className="btn-movies" onClick={() => addToCart(movie)}>Add to Cart</button>
                             </div>
                         </div>
@@ -65,6 +68,6 @@ function Movie({ addToCart, addToList }) {
             </div>
         </>
     );
-}
+} // Movie.js
 
 export default Movie;
