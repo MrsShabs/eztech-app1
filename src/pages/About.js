@@ -8,9 +8,9 @@ export default function About () {
     return (
     
     <>
-    <h1>About</h1>
+    <h1></h1>
     
-    <p> StreamList is a platform for movie fanatics who looking for safe place to watch, download, and share movies. </p>
+    <h2> StreamList is a platform for movie fanatics who looking for safe place to watch, download, and share movies. </h2>
     
     
     <FontAwesomeIcon className = "icon"icon={faMagnifyingGlass} size="2xl" style={{color: "#990000",}} />

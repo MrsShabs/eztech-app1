@@ -4,7 +4,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faMagnifyingGlass } from '@fortawesome/free-solid-svg-icons';
 import axios from 'axios';
 import '../css/Search.css';
-import '../css/Movies.css';
+import '../css/Movie.css';
 
 function Search() {
     const [query, setQuery] = useState('');
@@ -72,16 +72,3 @@ function Search() {
 }
 
 export default Search;
-
-/*  <div className="results">
-                {results.length > 0 && results.map((movie) => (
-                    <div key={movie.id} className="movie">
-                        <h3>{movie.title}</h3>
-                        <p>{movie.overview}</p>
-                    </div>
-                ))}
-            </div>
-*/
-
-/*
- */

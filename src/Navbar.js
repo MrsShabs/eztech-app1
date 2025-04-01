@@ -11,7 +11,7 @@ export const Navbar = () => {
     <nav className="nav">
       {/* insert image in to the navbar */}
       <div className="img">
-        <img src="./assets/logo.svg" width="100" height="100"></img> 
+        <img src="./assets/Logo.png" width="100" height="100"></img> 
       </div>
         <Link to="/" className="site-title"> 
         StreamList

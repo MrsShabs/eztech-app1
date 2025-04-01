@@ -1,10 +1,21 @@
 input{
     align-items: right;
     color: white;
+    padding: 16px 30px;
+    border-radius: 1rem;
+    border: 2px solid rgba(147, 32, 32, 0.808);
+   
+}
+
+label {
+    margin-bottom: 0.5rem;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    font-weight: bold;
+    color:#ffffff;
 }
 
 .log-in-btn {
-    padding: 12px 21px;
+    padding: 10px 21px;
     background-color: rgb(145, 32, 32);
     border: none;
     font-weight: bold;
@@ -14,5 +25,15 @@ input{
     font-size: 15px;
     display: flex;
     align-items: center;
-    margin-left: 150px; 
+    margin-bottom: 55px;
+    
+}
+
+.container-flexible {
+    padding-top: 200px;
+    padding-bottom: 50px;
+    padding-left: 150px;
+    padding-right: 150px;
+    position: center;
+    margin-bottom: -20px;
 }

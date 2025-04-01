@@ -1,9 +1,9 @@
-import React, {Component} from 'react';
+import React, { Component } from 'react';
 import { Routes, Route } from 'react-router-dom';
 import Navbar from './Navbar';
 import About from './pages/About.js';
 import Cart from './pages/Cart.js';
-import Movie from './pages/Movies.js';
+import Movie from './pages/Movie.js'; // Corrected import
 import SearchResults from './pages/SearchResults.js';
 import Lists from './pages/Lists.js';
 import StreamList from './pages/StreamList.js';
@@ -17,69 +17,72 @@ import './Footer.css';
 class App extends Component {
   constructor(props) {
     super(props);
-     this.state = {
-      users: [], 
+    this.state = {
+      users: [],
       movies: [],
       results: [],
-      list: [],
+      favorites: [],
       cart: []
     };
   }
+
   componentDidMount() {
     const savedUsers = JSON.parse(localStorage.getItem('users')) || this.state.users;
     this.setState({ users: savedUsers });
   }
-  
+
   saveData = () => {
     localStorage.setItem('users', JSON.stringify(this.state.users));
-    };
+  };
 
-
-  // funtion to take move and aded to the cart state 
+  // Function to add movie to the cart state
   addToCart = (movie) => {
-    this.setState (
-    (prevState) => ({     
-      cart: [...prevState.cart, movie] // forcing append to movies array right after what is in the list already 
-    })
-  );
-  console.log(this.state.cart)
-}
-  
-  /*
-  addNewList = (lists) => {
     this.setState(
-      (prevState) => ({
-        lists: [...prevState.lists, list].sort((a,b) =>
-          a.name.localeCompare(b.name))
-      }),
-      this.saveData
+      (prevState) => {
+        const updatedCart = [...prevState.cart, movie]; // Append to cart array
+        localStorage.setItem('cart', JSON.stringify(updatedCart)); // Save updated cart to local storage
+        console.log('Movie added to cart:', movie); // Log the added movie
+        return { cart: updatedCart };
+      }
     );
-  }; */
-  
-render () {
-  return (
-    <>
-    <div className="App">
-    <section>
-    <Navbar />
-      <Routes>
-          <Route path="/" element={<StreamList />} />
-          <Route path="/movie" element={<Movie addToCart={this.addToCart}/>} />
-          <Route path='/searchResults' element={<SearchResults />} />
-          <Route path="/lists" element={<Lists />} />
-          <Route path="/cart" element={<Cart cart={this.state.cart} />} />
-          <Route path="/userProfile" element={<UserProfile />} />
-          <Route path="/about" element={<About />} />
-          <Route path="/support" element={<Support/>} />
-      </Routes>
-      </section>
-      {/* footer in black  */}
-      <Footer/>
-    </div>
-    </>
-  );
+  };
 
+  // Function to add movie to the favorites list
+addToList = (movie) => {
+  this.setState((prevState) => {
+    // Check if the movie is already in the favorites list
+    if (!prevState.favorites.some((favMovie) => favMovie.id === movie.id)) {
+      const updatedFavorites = [...prevState.favorites, movie];
+      localStorage.setItem('favorites', JSON.stringify(updatedFavorites)); // Save updated favorites to local storage
+      console.log('Movie added to favorites:', movie); // Log the added movie
+      return { favorites: updatedFavorites };
+    }
+    return null; // No state update if the movie is already in the list
+  });
+};
+
+  render() {
+    return (
+      <>
+        <div className="App">
+          <section>
+            <Navbar />
+            <Routes>
+              <Route path="/" element={<StreamList />} />
+              <Route path="/movie" element={<Movie addToCart={this.addToCart} addToList={this.addToList} />} />
+              <Route path='/searchResults' element={<SearchResults addToCart={this.addToCart} addToList={this.addToList} />} />
+              <Route path="/lists" element={<Lists favorites={this.state.favorites} />} />
+              <Route path="/cart" element={<Cart cart={this.state.cart} />} />
+              <Route path="/userProfile" element={<UserProfile />} />
+              <Route path="/about" element={<About />} />
+              <Route path="/support" element={<Support />} />
+            </Routes>
+          </section>
+          {/* footer in black */}
+          <Footer />
+        </div>
+      </>
+    );
+  }
 }
-
-} //class App 
 export default App;

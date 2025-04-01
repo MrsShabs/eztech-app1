@@ -1,8 +1,13 @@
-.search-results-movie-title {
+
+.col-3-results-title {
+    font-size: 17px;
     font-weight: bold;
-    text-align: center;
-    width: 500px;
+    text-align: left;
+    width: 150px;
     height: 15px;
+    margin-right: 40px;
+    padding: 5px, 10px;
+    margin-left: 6px;
 }
 
 .search-results-movie-vote{
@@ -11,8 +16,36 @@
     height: 15px;
 }
 
+.col-3-results-raitings {
+    padding: 5px, 15px;
+    margin-top: 5px;
+    margin-right: 55px;
+    text-align: center;
+    
+
+}
+
 .search-results-movie-overview{
     width: 500px;
-    height: 70px;
+    height: 130px;
     padding: 5px;
+}
+
+.results-bt {
+    background-color: rgb(145, 32, 32);
+    border: none;
+    font-weight: bold;
+    color: #ffffff;
+    border-radius: 0.5rem;
+    cursor: pointer;
+    font-size: 15px;
+    align-items: center;
+    margin-top: 20px;
+    margin-bottom: 5px;
+    margin-right: 10px;
+    margin-left: 5px;
+    width: 100px;
+    height: 30px;
+    text-align: center;
+    justify-content:center;
 }
