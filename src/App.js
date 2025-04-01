@@ -24,7 +24,6 @@ class App extends Component {
       list: [],
       cart: []
     };
-
   }
   componentDidMount() {
     const savedUsers = JSON.parse(localStorage.getItem('users')) || this.state.users;
@@ -84,4 +83,3 @@ render () {
 
 } //class App 
 export default App;
-

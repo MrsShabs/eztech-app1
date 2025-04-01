@@ -5,15 +5,10 @@ import '../css/Movies.css';
 function Movies({addToCart}) {
     // state to hold movies 
     const [movies, setMovies] = useState([]);
-    // state to load fetch data 
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState(null);
     // to display search results in UI for user
     const [results, setResults] = useState([]);
-    // state to add movie to cart
-    const [cart, setCart] = useState([]);
-    //state to add movie to list
-    const [list, setList] = useState([]);
 
     // default fetch
     useEffect(() => {
