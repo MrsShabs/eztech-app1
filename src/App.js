@@ -17,11 +17,23 @@ import './App.css';
 import './Navbar.css';
 import './Footer.css';
 
+
+function ProtectedRoute({children}) {
+  // Check if the user is logged in
+  const isLoggedIn = (localStorage.getItem('isLoggedIn')) || false;
+  if (isLoggedIn) {
+    return children;
+  } else {
+    return <Navigate to="/userLogIn" />;
+  }
+}
+
+
 class App extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      users: [],
+      users: [], // no more use of user[] change to oauthUser 
       movies: [],
       results: [],
       favorites: [],
@@ -39,7 +51,7 @@ class App extends Component {
     const savedUsers = JSON.parse(localStorage.getItem('users')) || this.state.users;
     const savedCart = JSON.parse(localStorage.getItem('cart')) || this.state.cart;
     const savedFavorites = JSON.parse(localStorage.getItem('favorites')) || this.state.favorites;
-    const savedCardData = JSON.parse(localStorage.getItem('cardData')) || this.state.users;
+    const savedCardData = JSON.parse(localStorage.getItem('cardData')) || this.state.cardData;
     const isLoggedIn = JSON.parse(localStorage.getItem('isLoggedIn')) || false;
     const oauthUser = JSON.parse(localStorage.getItem('oauthUser')) || null;
     this.setState({ users: savedUsers, cart: savedCart, favorites: savedFavorites, isLoggedIn, oauthUser });
@@ -112,22 +124,17 @@ class App extends Component {
           )}
           <section>
             <Navbar />
-            <Routes>
-              {/* Redirect to login if not logged in */}
-              {/* 
-              {!this.state.isLoggedIn ? (
-                <Route path="*" element={<Navigate to="/userLogIn" />} />
-              ) : (*/}
+            <Routes>4
                 <>
-                  <Route path="/" element={<StreamList />} />
-                  <Route path="/movie" element={<Movie addToCart={this.addToCart} addToList={this.addToList} />} />
-                  <Route path='/searchResults' element={<SearchResults addToCart={this.addToCart} addToList={this.addToList} />} />
-                  <Route path="/lists" element={<Lists favorites={this.state.favorites} />} />
-                  <Route path="/cart" element={<Cart cart={this.state.cart} />} />
-                  <Route path="/userProfile" element={<UserProfile />} />
-                  <Route path="/about" element={<About />} />
-                  <Route path="/support" element={<Support />} />
-                  <Route path="/paymentForm" element={<PaymentForm cardData={this.state.cardData} />} />
+                  <Route path="/" element={<ProtectedRoute> <Movie addToCart={this.addToCart} addToList={this.addToList}/></ProtectedRoute>} />
+                  <Route path="/movie" element={<ProtectedRoute> <Movie addToCart={this.addToCart} addToList={this.addToList}/></ProtectedRoute>} />
+                  <Route path='/searchResults' element={<ProtectedRoute><SearchResults addToCart={this.addToCart} addToList={this.addToList} /></ProtectedRoute>} />
+                  <Route path="/lists" element={<ProtectedRoute> <Lists favorites={this.state.favorites} /></ProtectedRoute>} />
+                  <Route path="/cart" element={<ProtectedRoute><Cart cart={this.state.cart} cardData={this.state.cardData} /></ProtectedRoute>} />
+                  <Route path="/userProfile" element={<ProtectedRoute><UserProfile /> </ProtectedRoute>}/>
+                  <Route path="/about" element={<ProtectedRoute><About /></ProtectedRoute>} />
+                  <Route path="/support" element={<ProtectedRoute><Support /></ProtectedRoute>} />
+                  <Route path="/paymentForm" element={<ProtectedRoute><PaymentForm cardData={this.state.cardData} /></ProtectedRoute>} />
                 </>
               
               <Route path="/userLogIn" element={<UserLogIn onLogin={this.handleLogin} />} />
@@ -140,6 +147,7 @@ class App extends Component {
       </>
     );
   }
-}
+} // class App
+
 
 export default App;

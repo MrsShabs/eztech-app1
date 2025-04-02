@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { GitHubLoginButton } from '@react-oauth/github'; 
+import  GitHubLoginButton  from 'react-login-github'; 
 import '../css/UserLogIn.css';
 
 const Login = ({ onLogin }) => {
@@ -19,10 +19,11 @@ const Login = ({ onLogin }) => {
         }
     };
 
+    // function to login user to StreamList
     const handleGitHubLoginSuccess = (response) => {
         console.log('GitHub Login Success:', response);
-        onLogin();
-        navigate('/'); // Redirect to main application
+        localStorage.setItem('isLoggedIn', true);
+        navigate('/movie'); // Redirect to main application
     };
 
     const handleGitHubLoginFailure = (error) => {
@@ -56,10 +57,8 @@ const Login = ({ onLogin }) => {
                         />
                     </div>
                 </div>
-                <button className="log-in-btn" type="submit">Login</button>
             </form>
             <div className="oauth-login">
-                <h3>Or Login with:</h3>
                 <GitHubLoginButton
                     className="github-login-button"
                     clientId="Ov23liLDl2KIZYefq5dU" // Updated placeholder for clientId

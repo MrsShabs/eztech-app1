@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom'; // Add import for navigation
 import "../css/PaymentForm.css"
 
-export const PaymentForm = () => {
+export const PaymentForm = ({}) => {
 
   // state to save the card data
   const [cardData, setCardData] = useState({

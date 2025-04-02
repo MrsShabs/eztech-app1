@@ -6,7 +6,7 @@ import { faCreditCard } from '@fortawesome/free-solid-svg-icons';
 import { useNavigate } from 'react-router-dom';
 import '../css/Cart.css';
 
-function Cart({ cart: propCart }) {
+function Cart({ cart: propCart, cardData }) {
     const [cart, setCart] = useState(propCart);
     const navigate = useNavigate(); // Add useNavigate hook
 
@@ -31,8 +31,13 @@ function Cart({ cart: propCart }) {
     // function to direct user to add payment form and complete order
     const handleAddPayment = () => {
         navigate('/paymentForm');
-    };
-
+    }; 
+    /* 
+    //function to submit payment with PaymentForm to payment processor. 
+    handleSubmitPayment = (cardData) => {
+        // subtotal apply the card payment infomation 
+    }
+*/
     return (
         <>
             <div className="cart-container row">
@@ -72,7 +77,7 @@ function Cart({ cart: propCart }) {
                     <button className="add-payment-btn" onClick={handleAddPayment}>
                         <FontAwesomeIcon icon={faCreditCard} style={{color: "#ffffff",}} /> 
                     </button>
-                    <button className="cart-checkout-btn" >
+                    <button className="cart-checkout-btn">
                         <FontAwesomeIcon icon={faCartShopping} style={{ color: "#ffffff" }} />
                     </button>
                     </div>
