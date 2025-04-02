@@ -41,7 +41,6 @@ class App extends Component {
   saveData = () => {
     localStorage.setItem('users', JSON.stringify(this.state.users));
   };
-  */
 
   // Function to add movie to the cart state
   addToCart = (movie) => {
@@ -52,7 +51,6 @@ class App extends Component {
         localStorage.setItem('cart', JSON.stringify(updatedCart)); //save updated cart to local storage
         console.log('Movie added to cart:', movie); // log added movie
         return { 
-          cart: updatedCart, 
           popupMessage: 'Movie added to cart!', // message to display in the popup
           showPopup: true 
         };
@@ -74,7 +72,6 @@ class App extends Component {
         localStorage.setItem('favorites', JSON.stringify(updatedFavorites)); // Save updated favorites to local storage
         console.log('Movie added to favorites:', movie); // Log the added movie
         return { 
-          favorites: updatedFavorites, 
           popupMessage: 'Movie added to favorites!', // message to display in the popup
           showPopup: true };
       } else {
