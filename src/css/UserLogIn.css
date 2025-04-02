@@ -1,9 +1,23 @@
+.contairer-flexible-login {
+    background-image: url("/public/assets/bgimage.png");
+    background-size: 500px;
+    background-repeat: no-repeat;
+    background-position: center;
+    background-position-y: 0px;
+}
+.user-login-title {
+    margin-top: 150px;
+}
+
 input{
-    align-items: right;
-    color: white;
-    padding: 16px 30px;
+    color: black;
+    padding: 16px 5px;
     border-radius: 1rem;
     border: 2px solid rgba(147, 32, 32, 0.808);
+    font-size: 15px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
    
 }
 
@@ -15,25 +29,25 @@ label {
 }
 
 .log-in-btn {
+    margin-top: 10px;
     padding: 10px 21px;
     background-color: rgb(145, 32, 32);
     border: none;
     font-weight: bold;
     color: #ffffff;
     border-radius: 0.5rem;
-    cursor: pointer;
     font-size: 15px;
     display: flex;
-    align-items: center;
-    margin-bottom: 55px;
     
 }
-
-.container-flexible {
-    padding-top: 200px;
-    padding-bottom: 50px;
-    padding-left: 150px;
-    padding-right: 150px;
-    position: center;
-    margin-bottom: -20px;
+.github-login-button {
+    margin-top: 10px;
+    padding: 10px 21px;
+    background-color: rgb(145, 32, 32);
+    border: none;
+    font-weight: bold;
+    color: #ffffff;
+    border-radius: 0.5rem;
+    font-size: 15px;
+    display: flex;
 }

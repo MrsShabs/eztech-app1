@@ -2,10 +2,13 @@ import React, { useState, useEffect } from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faTrash } from '@fortawesome/free-solid-svg-icons';
 import { faCartShopping } from '@fortawesome/free-solid-svg-icons';
+import { faCreditCard } from '@fortawesome/free-solid-svg-icons';
+import { useNavigate } from 'react-router-dom';
 import '../css/Cart.css';
 
 function Cart({ cart: propCart }) {
     const [cart, setCart] = useState(propCart);
+    const navigate = useNavigate(); // Add useNavigate hook
 
     useEffect(() => {
         setCart(propCart); // Update cart state when propCart changes
@@ -24,6 +27,11 @@ function Cart({ cart: propCart }) {
     if (cart.length === 0) {
         return <p>Your cart is empty.</p>;
     }
+
+    // function to direct user to add payment form and complete order
+    const handleAddPayment = () => {
+        navigate('/paymentForm');
+    };
 
     return (
         <>
@@ -60,9 +68,14 @@ function Cart({ cart: propCart }) {
                 <div className="checkout-container">
                     <span className="cart-subtotals">Subtotal:</span>
                     <span className="cart-total">${calculateTotal().toFixed(2)}</span>
-                    <button className="cart-checkout-btn">
+                    <div>
+                    <button className="add-payment-btn" onClick={handleAddPayment}>
+                        <FontAwesomeIcon icon={faCreditCard} style={{color: "#ffffff",}} /> 
+                    </button>
+                    <button className="cart-checkout-btn" >
                         <FontAwesomeIcon icon={faCartShopping} style={{ color: "#ffffff" }} />
                     </button>
+                    </div>
                 </div>
             </div>
         </>

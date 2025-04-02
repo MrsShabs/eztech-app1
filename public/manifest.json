@@ -3,17 +3,11 @@
   "name": "StreamList Movie App",
   "icons": [
     {
-      "src": "/public/assets/Logo.png",
+      "src": "Logo.png",
       "type": "image/png",
       "sizes": "192x192",
       "purpose":"any maskable"
-    },
-
-    {
-      "src": "/public/assets/Logo.png",
-      "type": "image/png",
-      "sizes": "512x512"
-    }
+    } 
   ],
   "start_url": ".",
   "display": "standalone",

@@ -1,54 +1,74 @@
 import React, { useState } from 'react';
-import { useNavigate } from 'react-router-dom'; // Import useNavigate
+import { useNavigate } from 'react-router-dom';
+import { GitHubLoginButton } from '@react-oauth/github'; 
 import '../css/UserLogIn.css';
 
-function Login() {
+const Login = ({ onLogin }) => {
     const [username, setUsername] = useState('');
     const [password, setPassword] = useState('');
-    const navigate = useNavigate(); // Initialize useNavigate
+    const navigate = useNavigate();
 
-    const handleSubmit = (event) => {
-        event.preventDefault();
-        // Handle login logic here (e.g., API call)
-        console.log('Username:', username, 'Password:', password);
-
-        // Example: Navigate to Movies page after successful login
-        if (username && password) { // Add your actual login validation logic here
-            navigate('/movie'); // Redirect to the Movies page
+    const handleSubmit = (e) => {
+        e.preventDefault();
+        // Simulate login verification
+        if (username === 'user' && password === 'password') {
+            onLogin();
+            navigate('/'); // Redirect to main application
+        } else {
+            alert('Invalid credentials');
         }
+    };
 
-        // Reset form fields
-        setUsername('');
-        setPassword('');
+    const handleGitHubLoginSuccess = (response) => {
+        console.log('GitHub Login Success:', response);
+        onLogin();
+        navigate('/'); // Redirect to main application
+    };
+
+    const handleGitHubLoginFailure = (error) => {
+        console.error('GitHub Login Failed:', error);
+        alert('GitHub login failed. Please try again.');
     };
 
     return (
-        <form className="StreamList" onSubmit={handleSubmit}>
-            <div className="container-flexible">
-                <div className="textBox">
+        <>
+            <h2 className="user-login-title"> User Login</h2>
+            <form onSubmit={handleSubmit}>
+                <div className="contairer-flexible-login">
+                    <div className="textbox-flexible">
                     <label htmlFor="username">Username:<span style={{ color: "red" }}>*</span></label>
-                    <input
-                        type="text"
-                        id="username"
-                        value={username}
-                        onChange={(e) => setUsername(e.target.value)}
-                        required
-                    />
-                </div>
-                <div className="textBox">
+                        <input
+                            className="user-login-input"
+                            type="text"
+                            placeholder="Username"
+                            value={username}
+                            onChange={(e) => setUsername(e.target.value)}
+                        />
+                    </div>
+                    <div className="textbox-flexible">
                     <label htmlFor="password">Password:<span style={{ color: "red" }}>*</span></label>
-                    <input
-                        type="password"
-                        id="password"
-                        value={password}
-                        onChange={(e) => setPassword(e.target.value)}
-                        required
-                    />
+                        <input
+                            className="user-login-input"
+                            type="password"
+                            placeholder="Password"
+                            value={password}
+                            onChange={(e) => setPassword(e.target.value)}
+                        />
+                    </div>
                 </div>
+                <button className="log-in-btn" type="submit">Login</button>
+            </form>
+            <div className="oauth-login">
+                <h3>Or Login with:</h3>
+                <GitHubLoginButton
+                    className="github-login-button"
+                    clientId="Ov23liLDl2KIZYefq5dU" // Updated placeholder for clientId
+                    onSuccess={handleGitHubLoginSuccess}
+                    onFailure={handleGitHubLoginFailure}
+                />
             </div>
-            <button className="log-in-btn" type="submit">Log in</button>
-        </form>
+        </>
     );
-}
+};
 
 export default Login;

@@ -4,7 +4,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faStar } from '@fortawesome/free-solid-svg-icons';
 import '../css/Movie.css';
 
-function Movie({ addToCart, addToList, showPopup }) {
+function Movie({ addToCart, addToList }) {
     const [movies, setMovies] = useState([]);
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState(null);
@@ -36,7 +36,6 @@ function Movie({ addToCart, addToList, showPopup }) {
 
     return (
         <>
-            {showPopup && <div className="popup-message">Movie added to the list!</div>} {/* Pop-up message */}
             <div className="container-fluid">
                 <div className="search-bar-container">
                     <Search setResults={setResults} />

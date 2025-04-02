@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Routes, Route } from 'react-router-dom';
+import { Routes, Route, Navigate } from 'react-router-dom'; // Added Navigate
 import Navbar from './Navbar';
 import About from './pages/About.js';
 import Cart from './pages/Cart.js';
@@ -9,6 +9,8 @@ import Lists from './pages/Lists.js';
 import StreamList from './pages/StreamList.js';
 import UserProfile from './pages/UserProfile.js';
 import Support from './pages/Support.js';
+import UserLogIn from './Components/UserLogIn'; 
+import PaymentForm from './Components/PaymentForm.js';
 import Footer from './Footer';
 import Popup from './Popup'; 
 import './App.css';
@@ -24,8 +26,11 @@ class App extends Component {
       results: [],
       favorites: [],
       cart: [],
+      cardData: [],
       showPopup: '', // message to display in the popup for at to list
       popupMessage: '', // Add popupMessage to state
+      isLoggedIn: false, // Add isLoggedIn state
+      oauthUser: null, // Add oauthUser to state
     };
   }
   
@@ -34,12 +39,24 @@ class App extends Component {
     const savedUsers = JSON.parse(localStorage.getItem('users')) || this.state.users;
     const savedCart = JSON.parse(localStorage.getItem('cart')) || this.state.cart;
     const savedFavorites = JSON.parse(localStorage.getItem('favorites')) || this.state.favorites;
-    this.setState({ users: savedUsers, cart: savedCart, favorites: savedFavorites });
+    const savedCardData = JSON.parse(localStorage.getItem('cardData')) || this.state.users;
+    const isLoggedIn = JSON.parse(localStorage.getItem('isLoggedIn')) || false;
+    const oauthUser = JSON.parse(localStorage.getItem('oauthUser')) || null;
+    this.setState({ users: savedUsers, cart: savedCart, favorites: savedFavorites, isLoggedIn, oauthUser });
   }
-  
-  /*
-  saveData = () => {
-    localStorage.setItem('users', JSON.stringify(this.state.users));
+  // function to handle login
+  handleLogin = (oauthUser = null) => {
+    this.setState({ isLoggedIn: true, oauthUser });
+    localStorage.setItem('isLoggedIn', true);
+    if (oauthUser) {
+      localStorage.setItem('oauthUser', JSON.stringify(oauthUser));
+    }
+  };
+
+   // function to handle logout
+  handleLogout = () => {
+    this.setState({ isLoggedIn: false });
+    localStorage.setItem('isLoggedIn', false);
   };
 
   // Function to add movie to the cart state
@@ -96,15 +113,26 @@ class App extends Component {
           <section>
             <Navbar />
             <Routes>
-              <Route path="/" element={<StreamList />} />
-              <Route path="/movie" element={<Movie addToCart={this.addToCart} addToList={this.addToList} />} />
-              <Route path='/searchResults' element={<SearchResults addToCart={this.addToCart} addToList={this.addToList} />} />
-              <Route path="/lists" element={<Lists favorites={this.state.favorites} />} />
-              <Route path="/cart" element={<Cart cart={this.state.cart} />} />
-              <Route path="/userProfile" element={<UserProfile />} />
-              <Route path="/about" element={<About />} />
-              <Route path="/support" element={<Support />} />
+              {/* Redirect to login if not logged in */}
+              {/* 
+              {!this.state.isLoggedIn ? (
+                <Route path="*" element={<Navigate to="/userLogIn" />} />
+              ) : (*/}
+                <>
+                  <Route path="/" element={<StreamList />} />
+                  <Route path="/movie" element={<Movie addToCart={this.addToCart} addToList={this.addToList} />} />
+                  <Route path='/searchResults' element={<SearchResults addToCart={this.addToCart} addToList={this.addToList} />} />
+                  <Route path="/lists" element={<Lists favorites={this.state.favorites} />} />
+                  <Route path="/cart" element={<Cart cart={this.state.cart} />} />
+                  <Route path="/userProfile" element={<UserProfile />} />
+                  <Route path="/about" element={<About />} />
+                  <Route path="/support" element={<Support />} />
+                  <Route path="/paymentForm" element={<PaymentForm cardData={this.state.cardData} />} />
+                </>
+              
+              <Route path="/userLogIn" element={<UserLogIn onLogin={this.handleLogin} />} />
             </Routes>
+            
           </section>
           {/* footer in black */}
           <Footer />
