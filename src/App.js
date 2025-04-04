@@ -8,14 +8,15 @@ import SearchResults from './pages/SearchResults.js';
 import Lists from './pages/Lists.js';
 import StreamList from './pages/StreamList.js';
 import UserProfile from './pages/UserProfile.js';
-import Support from './pages/Support.js';
-import UserLogIn from './Components/UserLogIn'; 
+import Support from './pages/Support.js'; 
 import PaymentForm from './Components/PaymentForm.js';
 import Footer from './Footer';
 import Popup from './Popup'; 
+import Splash from './pages/Splash.js';
 import './App.css';
 import './Navbar.css';
 import './Footer.css';
+
 
 
 function ProtectedRoute({children}) {
@@ -33,7 +34,7 @@ class App extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      users: [], // no more use of user[] change to oauthUser 
+      users: [], // no more use of user[] change to oauthUser ?
       movies: [],
       results: [],
       favorites: [],
@@ -51,7 +52,6 @@ class App extends Component {
     const savedUsers = JSON.parse(localStorage.getItem('users')) || this.state.users;
     const savedCart = JSON.parse(localStorage.getItem('cart')) || this.state.cart;
     const savedFavorites = JSON.parse(localStorage.getItem('favorites')) || this.state.favorites;
-    const savedCardData = JSON.parse(localStorage.getItem('cardData')) || this.state.cardData;
     const isLoggedIn = JSON.parse(localStorage.getItem('isLoggedIn')) || false;
     const oauthUser = JSON.parse(localStorage.getItem('oauthUser')) || null;
     this.setState({ users: savedUsers, cart: savedCart, favorites: savedFavorites, isLoggedIn, oauthUser });
@@ -98,6 +98,7 @@ class App extends Component {
       // Check if the movie is already in the favorites list
       if (!prevState.favorites.some((favMovie) => favMovie.id === movie.id)) {
         const updatedFavorites = [...prevState.favorites, movie];
+        this.setState({ favorites: updatedFavorites }); // Update state with the new favorites list
         localStorage.setItem('favorites', JSON.stringify(updatedFavorites)); // Save updated favorites to local storage
         console.log('Movie added to favorites:', movie); // Log the added movie
         return { 
@@ -110,6 +111,15 @@ class App extends Component {
       }
     });
   };
+
+   // delete movie from favorites
+  deleteMovieFromFavorites =(movieToDelete) => {
+    const updatedFavorites = this.state.favorites.filter((movie) => movie.id !== movieToDelete.id);
+    console.log('Movie deleted from favorites:', movieToDelete); // Log the deleted movie
+    this.setState({favorites: updatedFavorites});
+    //setFavorites(updatedFavorites); // Corrected state update
+    localStorage.setItem('favorites', JSON.stringify(this.state.favorites)); // Save updated favorites to local storage
+};
 
   render() {
     return (
@@ -124,12 +134,12 @@ class App extends Component {
           )}
           <section>
             <Navbar />
-            <Routes>4
+            <Routes>
                 <>
-                  <Route path="/" element={<ProtectedRoute> <Movie addToCart={this.addToCart} addToList={this.addToList}/></ProtectedRoute>} />
+                  <Route path="/" element={<ProtectedRoute> <StreamList addToCart={this.addToCart} addToList={this.addToList}/></ProtectedRoute>} />
                   <Route path="/movie" element={<ProtectedRoute> <Movie addToCart={this.addToCart} addToList={this.addToList}/></ProtectedRoute>} />
                   <Route path='/searchResults' element={<ProtectedRoute><SearchResults addToCart={this.addToCart} addToList={this.addToList} /></ProtectedRoute>} />
-                  <Route path="/lists" element={<ProtectedRoute> <Lists favorites={this.state.favorites} /></ProtectedRoute>} />
+                  <Route path="/lists" element={<ProtectedRoute> <Lists favorites={this.state.favorites} deleteMovieFromFavorites={this.deleteMovieFromFavorites} /></ProtectedRoute>} />
                   <Route path="/cart" element={<ProtectedRoute><Cart cart={this.state.cart} cardData={this.state.cardData} /></ProtectedRoute>} />
                   <Route path="/userProfile" element={<ProtectedRoute><UserProfile /> </ProtectedRoute>}/>
                   <Route path="/about" element={<ProtectedRoute><About /></ProtectedRoute>} />
@@ -137,7 +147,7 @@ class App extends Component {
                   <Route path="/paymentForm" element={<ProtectedRoute><PaymentForm cardData={this.state.cardData} /></ProtectedRoute>} />
                 </>
               
-              <Route path="/userLogIn" element={<UserLogIn onLogin={this.handleLogin} />} />
+              <Route path="/userLogIn" element={<Splash onLogin={this.handleLogin} />} />
             </Routes>
             
           </section>
@@ -151,3 +161,11 @@ class App extends Component {
 
 
 export default App;
+/*
+const handleLogout = () => {
+  localStorage.removeItem("isLoggedIn");
+  window.location.reload();
+};
+
+<button onClick={handleLogout}>Logout</button>;
+ */

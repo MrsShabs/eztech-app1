@@ -1,10 +1,34 @@
-.StreamList {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
+
+.homepage-welcome {
+    font-size: 90px;
+    font-weight: bold;
+    text-align: right;
     margin-top: 100px;
-    padding-top: 30px;
+}
+
+.homepage-message {
+    font-size: 40px;
+    font-weight: bold;
+    text-align:  center;
+    margin-top: 100px;
+}
+.homepage-movies-container {
+    padding-left: 20px;
+    padding-right: 20px;
 }
 
 
+.col-homepage-title {
+    font-size: 20px;
+}
 
+.fa-layers {
+    align-items: center;
+    justify-content: center;
+    justify-items: center;
+}
+.img-responsive {
+    display: block;
+    margin: 0 auto;
+    border-radius: 6px;
+}

@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import '../css/Lists.css';
 
-const Lists = ({ favorites }) => {
+const Lists = ({ favorites, deleteMovieFromFavorites }) => {
     const [lists, setLists] = useState([]);
     const [newListName, setNewListName] = useState('');
     const [editingListId, setEditingListId] = useState(null);
@@ -18,6 +18,8 @@ const Lists = ({ favorites }) => {
         localStorage.setItem('userLists', JSON.stringify(updatedLists));
     };
 
+
+    // create new list
     const handleNewList = () => {
         if (newListName.trim() === '') return;
         const updatedLists = [...lists, { id: Date.now(), name: newListName }];
@@ -26,6 +28,7 @@ const Lists = ({ favorites }) => {
         setNewListName('');
     };
 
+    // edit list name
     const handleEditList = (id) => {
         if (editingListName.trim() === '') {
             setEditingListId(null);
@@ -41,6 +44,7 @@ const Lists = ({ favorites }) => {
         setEditingListName('');
     };
 
+    // delete list
     const handleDeleteList = (id) => {
         const updatedLists = lists.filter((list) => list.id !== id);
         setLists(updatedLists);
@@ -60,7 +64,6 @@ const Lists = ({ favorites }) => {
                 <button className="btn-lists" onClick={handleNewList}>Create</button>
             </div>
             <div>
-                {/* Render the Favorites list dynamically */}
                 {favorites.length > 0 && (
                     <div className="list-item">
                         <h2>Favorites</h2>
@@ -75,6 +78,11 @@ const Lists = ({ favorites }) => {
                                                 src={`https://image.tmdb.org/t/p/w500${movie.poster_path}`}
                                                 alt={movie.title}
                                             />
+                                            <button
+                                                className="btn-lists"
+                                                    onClick={() => deleteMovieFromFavorites(movie)}>
+                                                Remove
+                                            </button>
                                         </div>
                                     ))}
                                 </div>
@@ -111,8 +119,8 @@ const Lists = ({ favorites }) => {
                             </button>
                             <button
                                 className="btn-lists"
-                                onClick={() => handleDeleteList(list.id)}
-                            >
+                                onClick={() =>
+                                    handleDeleteList(list.id)}>
                                 Delete
                             </button>
                         </div>

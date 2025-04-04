@@ -1,14 +1,18 @@
-.message-box {
+.support-container {
+    margin-top: 50px;
     display: block;
-    border: 5px solid rgba(147, 32, 32, 0.808);
+    justify-items: center;
+}
+.message-box {
+    display: flex;
+    border-radius: 1rem;
+    border: 3px solid rgba(147, 32, 32, 0.808);
     padding-top: 5px;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
     margin-top: 3px;
     margin-bottom: 50px;
-    padding-bottom: 350px;
-    
+    width: 600px;
+    height: 300px; 
+    margin-left: 15px;
 }
 .support-form {
     display: flex;
@@ -20,6 +24,10 @@
     font-weight: bold;
 } 
 
+.support-heading {
+    text-align: left;
+    margin-left: -20px;
+}
 .p {
     font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
     text-align: center;
@@ -29,18 +37,6 @@
     padding: 50px;
 }
 
-.Support {
-    display: flex;
-    flex-direction: column;
-    padding-top: 50px;
-    padding-bottom: 50px;
-    padding-left: 50px;
-    padding-right: 50px;
-    width: 50%;
-    margin-left: 290px;
-    align-items: center;
-    position: sticky;
-}
 .form-group {
     display: flex;
     flex-direction: column;
@@ -54,14 +50,20 @@
     font-weight: bold;
     font-size: 20px;
     color:#0b0b0b;
+    width: 100px;
+    height: 10px;
+    margin-left: 15px;
+    
 }
   
 .inputBox {
-    padding: 16px 30px;
-    padding-right: 100px;
+    padding: 16px 10px;
+    width: 600px;
+    height: 50px;
     margin-bottom: 1rem;
     border-radius: 1rem;
-    border: 5px solid rgba(147, 32, 32, 0.808);
+    margin-left: 15px;
+    border: 3px solid rgba(147, 32, 32, 0.808);
 }
 
 .send {
@@ -70,12 +72,10 @@
     border:  rgba(147, 32, 32, 0.876);
     font-weight: bold;
     color: #ffffff;
-    margin-left: 130px;
     border-radius: 0.5rem;
     cursor: pointer;
     margin-top: 30px;
-    font-size: 15px;
-    
-    
+    margin-left: 15px;
+    font-size: 15px;   
 }
 

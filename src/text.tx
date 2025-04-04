@@ -54,3 +54,150 @@ function Login() {
 }
 
 export default Login;
+
+---> UserLogIn. js 
+
+import React, { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
+import  GitHubLoginButton  from 'react-login-github'; 
+import '../css/UserLogIn.css';
+
+const Login = ({ onLogin }) => {
+    const [username, setUsername] = useState('');
+    const [password, setPassword] = useState('');
+    const navigate = useNavigate();
+
+    const handleSubmit = (e) => {
+        e.preventDefault();
+        // Simulate login verification
+        if (username === 'user' && password === 'password') {
+            onLogin();
+            navigate('/'); // Redirect to main application
+        } else {
+            alert('Invalid credentials');
+        }
+    };
+
+    // function to login user to StreamList
+    const handleGitHubLoginSuccess = (response) => {
+        console.log('GitHub Login Success:', response);
+        localStorage.setItem('isLoggedIn', true);
+        navigate('/movie'); // Redirect to main application
+    };
+
+    const handleGitHubLoginFailure = (error) => {
+        console.error('GitHub Login Failed:', error);
+        alert('GitHub login failed. Please try again.');
+    };
+
+    return (
+        <>
+            <form onSubmit={handleSubmit}>
+                <div className="contairer-flexible"> 
+                    <div className="flexbox">  
+                    <div className="textbox">
+                    <label htmlFor="username">Username:<span style={{ color: "red" }}>*</span></label>
+                        <input
+                            className="user-login-input"
+                            type="text"
+                            placeholder="Username"
+                            value={username}
+                            onChange={(e) => setUsername(e.target.value)}
+                        />
+                    </div>
+                    <div className="textbox">
+                    <label htmlFor="password">Password:<span style={{ color: "red" }}>*</span></label>
+                        <input
+                            className="user-login-input"
+                            type="password"
+                            placeholder="Password"
+                            value={password}
+                            onChange={(e) => setPassword(e.target.value)}
+                        />
+                    </div>
+                    </div> 
+            
+            <div className="oauth-login">
+                <GitHubLoginButton
+                    className="github-login-button"
+                    clientId="Ov23liLDl2KIZYefq5dU" // Updated placeholder for clientId
+                    onSuccess={handleGitHubLoginSuccess}
+                    onFailure={handleGitHubLoginFailure}
+                />
+            </div>
+            </div>
+            </form>
+            
+        </>
+    );
+};
+
+export default Login;
+
+---> StreamList.js
+
+class StreamList extends React.Component {
+    constructor(props) {
+        super(props); 
+        this.state = {
+          users: JSON.parse(localStorage.getItem('users')) || []
+        };
+    }
+
+    // Save users to local storage
+    saveToLocalStorage = (users) => {
+        localStorage.setItem('users', JSON.stringify(users));
+    }
+
+    // Prevents the default form submission behavior   
+    handleSubmit = (e) => {
+        e.preventDefault(); // prevents default form submission behavior
+        const { email, password } = e.target; // interested elements from the form
+        const user = { email: email.value, password: password.value }; // creating a new user and its properties where email and password will be submitted through the form
+        this.setState(          // modifying the state of user list 
+            (prevState) => {     
+                const updatedUsers = [...prevState.users, user];
+                this.saveToLocalStorage(updatedUsers); // Save to local storage
+                return { users: updatedUsers };
+            }
+        );
+        e.target.reset(); // resetting the form after submission
+    };
+
+    handleDelete = (index) => {
+        const users = [...this.state.users];
+        users.splice(index, 1);
+        this.setState({ users }, () => {
+            this.saveToLocalStorage(this.state.users);
+        });
+    };  
+
+    editUserDetail = (index, email, password) => {
+        this.setState({
+            users: this.state.users.map((user, i) => {
+                if (i === index) {
+                    return {
+                        ...user,
+                        email: email,
+                        password: password
+                    };
+                }
+                return user;
+            })
+        }, () => {
+            this.saveToLocalStorage(this.state.users);
+        });
+    };
+
+    render() {
+        return (
+            <>
+                <div className="home-container-flexible">
+                    <UserLogIn user={this.state.users} handleSubmit={this.handleSubmit} />
+                </div>
+            </>
+        ); // return closing tag
+    } // render closing tag
+} // class closing tag
+
+export default StreamList;

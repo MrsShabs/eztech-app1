@@ -32,12 +32,24 @@ function Cart({ cart: propCart, cardData }) {
     const handleAddPayment = () => {
         navigate('/paymentForm');
     }; 
-    /* 
-    //function to submit payment with PaymentForm to payment processor. 
-    handleSubmitPayment = (cardData) => {
-        // subtotal apply the card payment infomation 
-    }
-*/
+    
+    // function to submit payment with PaymentForm to payment processor
+    const handleSubmitPayment = () => {
+        // veriable holding stored card data
+        const storedCardData = localStorage.getItem('cardData');
+        // if stredCardData has data, clear cart and redirect to message with purchase complete 
+        if (storedCardData && JSON.parse(storedCardData).length > 0) {
+            // Clear the cart if payment is successful
+            setCart([]);
+            localStorage.removeItem('cart');
+            alert('Payment successful! Your cart has been cleared.');
+        } else {
+            // Direct user to add payment if cardData is missing
+            alert('Please add payment details to proceed.');
+            navigate('/paymentForm');
+        }
+    };
+
     return (
         <>
             <div className="cart-container row">
@@ -77,7 +89,7 @@ function Cart({ cart: propCart, cardData }) {
                     <button className="add-payment-btn" onClick={handleAddPayment}>
                         <FontAwesomeIcon icon={faCreditCard} style={{color: "#ffffff",}} /> 
                     </button>
-                    <button className="cart-checkout-btn">
+                    <button className="cart-checkout-btn" onClick={handleSubmitPayment}>
                         <FontAwesomeIcon icon={faCartShopping} style={{ color: "#ffffff" }} />
                     </button>
                     </div>

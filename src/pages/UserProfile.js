@@ -58,7 +58,6 @@ class UserProfile extends Component {
 render() {
     return (
         <>
-            <h1>Profile</h1>
             <div className="profile-container">
                 <div className="profile-image">
                     <div className="d-flex justify-content-left">

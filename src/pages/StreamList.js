@@ -1,69 +1,76 @@
-import React from 'react'; 
-import UserLogIn from '../Components/UserLogIn.js';
+import React, { useState, useEffect } from 'react';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faStar } from '@fortawesome/free-solid-svg-icons';
 import '../css/StreamList.css';
 
-class StreamList extends React.Component {
-    constructor(props) {
-        super(props); 
-        this.state = {
-          users: JSON.parse(localStorage.getItem('users')) || []
-        };
-    }
+function StreamList({ addToCart, addToList, user }) {
+    const [movies, setMovies] = useState([]);
+    const [loading, setLoading] = useState(true);
+    const [error, setError] = useState(null);
+    const [setResults] = useState([]);
 
-    // Save users to local storage
-    saveToLocalStorage = (users) => {
-        localStorage.setItem('users', JSON.stringify(users));
-    }
 
-    // Prevents the default form submission behavior   
-    handleSubmit = (e) => {
-        e.preventDefault(); // prevents default form submission behavior
-        const { email, password } = e.target; // interested elements from the form
-        const user = { email: email.value, password: password.value }; // creating a new user and its properties where email and password will be submitted through the form
-        this.setState(          // modifying the state of user list 
-            (prevState) => {     
-                const updatedUsers = [...prevState.users, user];
-                this.saveToLocalStorage(updatedUsers); // Save to local storage
-                return { users: updatedUsers };
-            }
-        );
-        e.target.reset(); // resetting the form after submission
-    };
-
-    handleDelete = (index) => {
-        const users = [...this.state.users];
-        users.splice(index, 1);
-        this.setState({ users }, () => {
-            this.saveToLocalStorage(this.state.users);
-        });
-    };  
-
-    editUserDetail = (index, email, password) => {
-        this.setState({
-            users: this.state.users.map((user, i) => {
-                if (i === index) {
-                    return {
-                        ...user,
-                        email: email,
-                        password: password
-                    };
+    useEffect(() => {
+        const fetchData = async () => {
+            try {
+                const response = await fetch('https://api.themoviedb.org/3/search/movie?api_key=0849a6e86fb90fea611af2a9738f9e14&query=movies');
+                if (!response.ok) {
+                    throw new Error(`HTTP error! status: ${response.status}`);
                 }
-                return user;
-            })
-        }, () => {
-            this.saveToLocalStorage(this.state.users);
-        });
-    };
+                const data = await response.json();
+                setMovies(data.results);
+                setLoading(false);
+            } catch (e) {
+                setError(e);
+                setLoading(false);
+            }
+        };
 
-    render() {
-        return (
-            <>
-                <div className="home-container-flexible">
-                    <UserLogIn user={this.state.users} handleSubmit={this.handleSubmit} />
+        fetchData();
+    }, []);
+
+
+    if (loading) return <div>Loading...</div>;
+    if (error) return <div>Error: {error.message}</div>;
+
+    return (
+        <>
+            <div className="homepage-container">
+                <div className="row">
+                    <div className="col-6"></div>
+                    <div className="col-6">
+                        <div className="homepage-welcome">Welcome</div>
+                    </div>
+                    <h1>{user}</h1>
                 </div>
-            </>
-        ); // return closing tag
-    } // render closing tag
-} // class closing tag
+            </div>
+            <div className="homepage-movies-container">
+                <div className="row">
+                    {movies.map(movie => (
+                        <div className="col" key={movie.id}>
+                            <div className="col-homepage-title">{movie.title}</div>
+                            <img
+                                className="img-responsive"
+                                src={`https://image.tmdb.org/t/p/w500${movie.poster_path}`}
+                                alt={movie.title}
+                            />
+                            <div className="d-flex">
+
+                                <div className="fa-layers">
+                                    <FontAwesomeIcon className="movies-star" icon={faStar} size="5x" style={{ color: "#990000" }} />
+                                    <span className="col">{movie.vote_average}</span>
+                                </div>
+                            </div>
+                            <div className="d-flex justify-content-center">
+                                <button className="btn-movies" onClick={() => addToList(movie)}>Add to List</button>
+                                <button className="btn-movies" onClick={() => addToCart(movie)}>Add to Cart</button>
+                            </div>
+                        </div>
+                    ))}
+                </div>
+            </div>
+        </>
+    );
+} // Movie.js
 
 export default StreamList;

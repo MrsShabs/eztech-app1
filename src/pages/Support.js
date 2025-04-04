@@ -5,17 +5,14 @@ export default function Support() {
 
     const message = "Please write your message here:";
   return (
-    <>
-        <h1>Support</h1>
-        <div className="message-box">
-          <p> {message}</p>
-        </div>
-
+    <div className="support-container">
+        <h1 className="support-heading">Support</h1>
+         <input type="text" placeholder={message} className="message-box"></input>
+      
       <form >
         <div className="supportForm">
-            <div>
-              <label htmlFor="name">
-                Name: <span style={{ color: "red" }}>*</span>
+            <div className="support-input">
+              <label htmlFor="name">Name: <span style={{ color: "red" }}>*</span>
               </label>
               <input
                 type="text"
@@ -25,9 +22,8 @@ export default function Support() {
                 placeholder="Name"
               />
             </div>
-            <div>
-              <label htmlFor="email">
-                Email: <span style={{ color: "red" }}>*</span>
+            <div className="support-input">
+              <label htmlFor="email">Email: <span style={{ color: "red" }}>*</span>
               </label>
               <input
                 type="text"
@@ -41,6 +37,6 @@ export default function Support() {
           </div>
         
       </form>
-    </>
+    </div>
   );
 }
