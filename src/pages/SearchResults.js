@@ -17,32 +17,38 @@ function SearchResults({addToList, addToCart}) {
 
     return (
         <>
-            <h2>Your Search Results Are...</h2>
-            <div className="movies-container">
-                <div className="row">
-                    {results.length > 0 ? (
-                        results.map((movie) => (
-                            <div className="col-3" key={movie.id}>
-                                <img
-                                    className="img-responsive img-thumbnail"
-                                    style={{height: "310px", width: "210px"}}
-                                    src={`https://image.tmdb.org/t/p/w500${movie.poster_path}`}>
-                                </img>
-                                <div className="col-3-results-title">{movie.title}</div>
-                                <div className="col-3-results-raitings">
-                                    <div className="fa-layers">
-                                        <FontAwesomeIcon className="movies-star" icon={faStar} size="5x" style={{ color: "#990000" }} />
-                                        <span className="col">{movie.vote_average}</span>
-                                    </div>
-                                </div>
+        <div className="homepage-welcome">Search Results</div>
+         <div className="movies-container">
+        <div className="row">
+            {results.length > 0 ? (
+                results.map(movie => (
+                    <div className="col" key={movie.id}>
+                        <div className="row">
+                            <div className="col movie-title" style={{ width: '300px', overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap' }}>{movie.title} </div>
+                        </div>
+                        <div className="row">
+                            <div className="fa-layers">
+                                <span><FontAwesomeIcon className="movies-star" icon={faStar} size="6x" style={{ color: "#990000" }} /></span>
+                                <span className="col-movies-vote"><span className="movies-vote">{movie.vote_average.toFixed(0)}</span></span>
+                            </div>
+                            <img
+                                className="img-responsive"
+                                src={`https://image.tmdb.org/t/p/w500${movie.poster_path}`}
+                                alt={movie.title}
+                            />
+                        </div>
+                        <div className="row">
+                            <div className="homepage-movies-description">{movie.overview}</div>
+                            <div className="d-flex justify-content-center">
                                 <button className="btn-movies" onClick={() => addToList(movie)}>Add to List</button>
                                 <button className="btn-movies" onClick={() => addToCart(movie)}>Add to Cart</button>
                             </div>
-                            
-                        ))
-                    ) : (
-                        <p>No results found</p>
-                    )}
+                        </div>
+                    </div>
+                ))
+            ) : (
+                <p>No results found</p>
+            )}
                 </div>
             </div>
         </>

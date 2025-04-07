@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Routes, Route, Navigate } from 'react-router-dom'; // Added Navigate
+import { Routes, Route, Navigate, useNavigate } from 'react-router-dom'; // Added useNavigate
 import Navbar from './Navbar';
 import About from './pages/About.js';
 import Cart from './pages/Cart.js';
@@ -16,19 +16,29 @@ import Splash from './pages/Splash.js';
 import './App.css';
 import './Navbar.css';
 import './Footer.css';
+import Subscription from './pages/Subscription.js';
 
-
-
-function ProtectedRoute({children}) {
+function ProtectedRoute({ children }) {
+  const navigate = useNavigate(); 
   // Check if the user is logged in
-  const isLoggedIn = (localStorage.getItem('isLoggedIn')) || false;
+  const isLoggedIn = JSON.parse(localStorage.getItem('isLoggedIn')) || false;
   if (isLoggedIn) {
-    return children;
+    return children;// Redirect to subscription page if not logged in
   } else {
-    return <Navigate to="/userLogIn" />;
+    return <Navigate to="/userLogIn" />; // Redirect to login page if not logged in
   }
 }
 
+// subscription model 
+function SubscriptionRoute({ children }) {
+  // Check if the user is subscribed
+  const isSubscribedIn = JSON.parse(localStorage.getItem('subscription')) || false;
+  if (isSubscribedIn) {
+    return children; // Render children if subscribed
+  } else {
+    return <Navigate to="/subscription" />; // Redirect to subscription page if not subscribed
+  }
+}
 
 class App extends Component {
   constructor(props) {
@@ -58,33 +68,37 @@ class App extends Component {
   }
   // function to handle login
   handleLogin = (oauthUser = null) => {
+    const navigate = useNavigate(); // Use navigate for routing
     this.setState({ isLoggedIn: true, oauthUser });
     localStorage.setItem('isLoggedIn', true);
     if (oauthUser) {
       localStorage.setItem('oauthUser', JSON.stringify(oauthUser));
+      navigate('/subscription'); // Redirect to subscription page after login
     }
   };
 
    // function to handle logout
   handleLogout = () => {
-    this.setState({ isLoggedIn: false });
+    this.setState({ isLoggedIn: false, oauthUser: null }); // Clear oauthUser on logout
     localStorage.setItem('isLoggedIn', false);
+    localStorage.removeItem('oauthUser');
+    
   };
 
   // Function to add movie to the cart state
   addToCart = (movie) => {
     this.setState((prevState) => {
-      // Check if the movie is already in the cart
       if (!prevState.cart.some((cartMovie) => cartMovie.id === movie.id)) {
         const updatedCart = [...prevState.cart, movie];
-        localStorage.setItem('cart', JSON.stringify(updatedCart)); //save updated cart to local storage
-        console.log('Movie added to cart:', movie); // log added movie
+        localStorage.setItem('cart', JSON.stringify(updatedCart));
+        console.log('Movie added to cart:', movie);
         return { 
-          popupMessage: 'Movie added to cart!', // message to display in the popup
+          cart: updatedCart, // Update cart state
+          popupMessage: 'Movie added to cart!', 
           showPopup: true 
         };
       } else {
-        return {
+        return { 
           popupMessage: 'Movie is already in cart!', 
           showPopup: true 
         };
@@ -95,31 +109,33 @@ class App extends Component {
   // Function to add movie to the favorites list
   addToList = (movie) => {
     this.setState((prevState) => {
-      // Check if the movie is already in the favorites list
       if (!prevState.favorites.some((favMovie) => favMovie.id === movie.id)) {
         const updatedFavorites = [...prevState.favorites, movie];
-        this.setState({ favorites: updatedFavorites }); // Update state with the new favorites list
-        localStorage.setItem('favorites', JSON.stringify(updatedFavorites)); // Save updated favorites to local storage
-        console.log('Movie added to favorites:', movie); // Log the added movie
+        localStorage.setItem('favorites', JSON.stringify(updatedFavorites));
+        console.log('Movie added to favorites:', movie);
         return { 
-          popupMessage: 'Movie added to favorites!', // message to display in the popup
-          showPopup: true };
+          favorites: updatedFavorites, // Update favorites state
+          popupMessage: 'Movie added to favorites!', 
+          showPopup: true 
+        };
       } else {
         return { 
           popupMessage: 'Movie is already in favorites!', 
-          showPopup: true };
+          showPopup: true 
+        };
       }
     });
   };
 
    // delete movie from favorites
-  deleteMovieFromFavorites =(movieToDelete) => {
-    const updatedFavorites = this.state.favorites.filter((movie) => movie.id !== movieToDelete.id);
-    console.log('Movie deleted from favorites:', movieToDelete); // Log the deleted movie
-    this.setState({favorites: updatedFavorites});
-    //setFavorites(updatedFavorites); // Corrected state update
-    localStorage.setItem('favorites', JSON.stringify(this.state.favorites)); // Save updated favorites to local storage
-};
+  deleteMovieFromFavorites = (movieToDelete) => {
+    this.setState((prevState) => {
+      const updatedFavorites = prevState.favorites.filter((movie) => movie.id !== movieToDelete.id);
+      console.log('Movie deleted from favorites:', movieToDelete);
+      localStorage.setItem('favorites', JSON.stringify(updatedFavorites));
+      return { favorites: updatedFavorites }; // Update favorites state
+    });
+  };
 
   render() {
     return (
@@ -136,20 +152,19 @@ class App extends Component {
             <Navbar />
             <Routes>
                 <>
-                  <Route path="/" element={<ProtectedRoute> <StreamList addToCart={this.addToCart} addToList={this.addToList}/></ProtectedRoute>} />
-                  <Route path="/movie" element={<ProtectedRoute> <Movie addToCart={this.addToCart} addToList={this.addToList}/></ProtectedRoute>} />
-                  <Route path='/searchResults' element={<ProtectedRoute><SearchResults addToCart={this.addToCart} addToList={this.addToList} /></ProtectedRoute>} />
-                  <Route path="/lists" element={<ProtectedRoute> <Lists favorites={this.state.favorites} deleteMovieFromFavorites={this.deleteMovieFromFavorites} /></ProtectedRoute>} />
-                  <Route path="/cart" element={<ProtectedRoute><Cart cart={this.state.cart} cardData={this.state.cardData} /></ProtectedRoute>} />
-                  <Route path="/userProfile" element={<ProtectedRoute><UserProfile /> </ProtectedRoute>}/>
-                  <Route path="/about" element={<ProtectedRoute><About /></ProtectedRoute>} />
-                  <Route path="/support" element={<ProtectedRoute><Support /></ProtectedRoute>} />
-                  <Route path="/paymentForm" element={<ProtectedRoute><PaymentForm cardData={this.state.cardData} /></ProtectedRoute>} />
+                  <Route path="/" element={<ProtectedRoute><SubscriptionRoute><StreamList addToCart={this.addToCart} addToList={this.addToList} /></SubscriptionRoute></ProtectedRoute>} />
+                  <Route path="/movie" element={<ProtectedRoute><SubscriptionRoute><Movie addToCart={this.addToCart} addToList={this.addToList} /></SubscriptionRoute></ProtectedRoute>} />
+                  <Route path='/searchResults' element={<ProtectedRoute><SubscriptionRoute><SearchResults addToCart={this.addToCart} addToList={this.addToList} /></SubscriptionRoute></ProtectedRoute>} />
+                  <Route path="/lists" element={<ProtectedRoute><SubscriptionRoute><Lists favorites={this.state.favorites} deleteMovieFromFavorites={this.deleteMovieFromFavorites} /></SubscriptionRoute></ProtectedRoute>} />
+                  <Route path="/cart" element={<ProtectedRoute><SubscriptionRoute><Cart cart={this.state.cart} cardData={this.state.cardData} /></SubscriptionRoute></ProtectedRoute>} />
+                  <Route path="/userProfile" element={<ProtectedRoute><SubscriptionRoute><UserProfile /></SubscriptionRoute></ProtectedRoute>} />
+                  <Route path="/about" element={<ProtectedRoute><SubscriptionRoute><About /></SubscriptionRoute></ProtectedRoute>} />
+                  <Route path="/support" element={<ProtectedRoute><SubscriptionRoute><Support /></SubscriptionRoute></ProtectedRoute>} />
+                  <Route path="/paymentForm" element={<ProtectedRoute><SubscriptionRoute><PaymentForm cardData={this.state.cardData} /></SubscriptionRoute></ProtectedRoute>} />
                 </>
-              
               <Route path="/userLogIn" element={<Splash onLogin={this.handleLogin} />} />
+              <Route path="/subscription" element={<Subscription />} />
             </Routes>
-            
           </section>
           {/* footer in black */}
           <Footer />
@@ -159,13 +174,4 @@ class App extends Component {
   }
 } // class App
 
-
 export default App;
-/*
-const handleLogout = () => {
-  localStorage.removeItem("isLoggedIn");
-  window.location.reload();
-};
-
-<button onClick={handleLogout}>Logout</button>;
- */

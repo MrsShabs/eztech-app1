@@ -1,0 +1,30 @@
+.subscription-header {
+    font-size: 90px;
+    font-weight: bold;
+    text-align: center;
+    margin-top: 100px;
+    margin-right: 40px;
+}
+
+.subscription-item {
+    text-align: center;
+}
+.subscription-logo {
+    margin: 10px;
+}
+.subscribe-btn {
+background-color: rgb(145, 32, 32);
+border: none;
+font-weight: bold;
+color: #ffffff;
+border-radius: 0.5rem;
+cursor: pointer;
+font-size: 15px;
+margin-top: 20px;
+margin-bottom: 5px;
+margin-right: 10px;
+margin-left: 0px;
+width: 100px;
+height: 30px;
+text-align: center;
+}

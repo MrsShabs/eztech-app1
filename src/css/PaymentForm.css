@@ -2,10 +2,6 @@
     margin: 50px 30px;
 }
 
-.payment-container {
-    padding: 10px 20px;
-}
-
 .payment-form-title {
     justify-items: left;
     justify-content: left;
@@ -15,24 +11,35 @@
 
 .payment-form-label {
     color: black;
-    font-weight: 300;
+    font-weight: 600;
 }
 
 .payment-form-input {
     width: 300px;
     height: 50px;
     margin-right: 50px;
+    border-radius: 1rem;
+    border: 2px solid rgba(147, 32, 32, 0.808);
+    padding: 10px 15px;
+    margin: 10px 5px;
 }
 
 .exp-date-input {
     width: 100px;
     height: 50px;
     margin-right: 50px;
+    border-radius: 1rem;
+    border: 2px solid rgba(147, 32, 32, 0.808);
+    padding: 10px 15px;
+    margin: 10px 5px;
 }
-
 .cvv-input {
     width: 100px;
     height: 50px;
+    border-radius: 1rem;
+    border: 2px solid rgba(147, 32, 32, 0.808);
+    padding: 10px 15px;
+    margin: 10px 5px;
 }
 
 .payment-button {
@@ -48,5 +55,5 @@
     height: 50px;
     text-align: center;
     display: block;
-    margin-left: 20px;
+   
 }

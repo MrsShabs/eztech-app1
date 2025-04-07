@@ -66,7 +66,7 @@ const Lists = ({ favorites, deleteMovieFromFavorites }) => {
             <div>
                 {favorites.length > 0 && (
                     <div className="list-item">
-                        <h2>Favorites</h2>
+                        <div className="list-name">Favorites </div>
                         <div className="row">
                             <div className="col-6">
                                 <div className="d-flex">

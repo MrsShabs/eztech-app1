@@ -3,14 +3,12 @@ import { useNavigate } from 'react-router-dom';
 import GitHubLoginButton from 'react-login-github';
 import '../css/UserLogIn.css';
 
-const Login = ({ onLogin }) => {
-    const navigate = useNavigate();
+const Login = () => {
 
     // function to login user to StreamList
     const handleGitHubLoginSuccess = (response) => {
         console.log('GitHub Login Success:', response);
         localStorage.setItem('isLoggedIn', true);
-        navigate('/streamList'); // Redirect to main application
     };
 
     const handleGitHubLoginFailure = (error) => {
@@ -27,7 +25,7 @@ const Login = ({ onLogin }) => {
                 <div className="oauth-login">
                     <GitHubLoginButton
                         className="github-login-button"
-                        clientId="Ov23liLDl2KIZYefq5dU" // Updated placeholder for clientId
+                        clientId="Ov23liLDl2KIZYefq5dU" 
                         onSuccess={handleGitHubLoginSuccess}
                         onFailure={handleGitHubLoginFailure}
                     />

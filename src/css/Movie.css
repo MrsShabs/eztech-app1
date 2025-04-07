@@ -11,15 +11,19 @@
 
 .movies-container {
     flex-direction: row;
+    padding-left: 20px;
+    padding-right: 20px;
 
 }
 
 .movie-title{
     padding: 5px;
-    font-weight: bold;
     text-align: left;
-    font-size: 30px;
     width: 10px;
+    font-size: 23px;
+    margin-left: 13px;
+    font-weight: 600;
+    margin-top: 20px;
 }
 
 .grid{
@@ -31,28 +35,40 @@
 }
 
 .fa-layers{
-    position: relative;
-    margin-left: 10px;
-    margin-top: 10px;
-    margin-right: 40px;
+    align-items: center;
+    justify-content: center;
+    justify-items: center;
 }
 
 .fa-layers span {
+    padding-top: 5px;
     position: absolute;
-    top: 10%;
-    left: 90%;
+    top: 45%;
+    left: 85%;
     transform: translate (-50%,-50%);
     z-index: 1;
     font-weight: bold;
     color: white;
 }
 
+.movies-star {
+    padding-top: 20px;
+    margin-left: 20px;
+}
+
+.d-flex-movies {
+    margin-left: 400px;
+}
 .fa-star{
     margin: 1px;
     width: 50px;
     height: 50px;
     align-items: right;
 }   
+
+.movies-vote {
+    margin-left: 20px;
+}
 
 
 .btn-movies { 
@@ -63,7 +79,6 @@
     border-radius: 0.5rem;
     cursor: pointer;
     font-size: 15px;
-    align-items: center;
     margin-top: 20px;
     margin-bottom: 5px;
     margin-right: 10px;
@@ -71,7 +86,6 @@
     width: 100px;
     height: 30px;
     text-align: center;
-    justify-content:center;
 }
 
 .popup-message {

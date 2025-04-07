@@ -9,7 +9,7 @@ function Movie({ addToCart, addToList }) {
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState(null);
     const [setResults] = useState([]);
-    
+
 
     useEffect(() => {
         const fetchData = async () => {
@@ -45,25 +45,29 @@ function Movie({ addToCart, addToList }) {
                 <div className="row">
                     {movies.map(movie => (
                         <div className="col" key={movie.id}>
-                            <img
-                                className="img-responsive img-thumbnail"
-                                src={`https://image.tmdb.org/t/p/w500${movie.poster_path}`}
-                                alt={movie.title}
-                            />
-                            <div className="d-flex">
-                                <div className="col movie-title">{movie.title}</div>
-                                <div className="fa-layers">
-                                    <FontAwesomeIcon className="movies-star" icon={faStar} size="5x" style={{ color: "#990000" }} />
-                                    <span className="col">{movie.vote_average}</span>
-                                </div>
+                            <div className="row">
+                                <div className="col movie-title" style={{ width: '300px', overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap' }}>{movie.title} </div>
                             </div>
-                            <div className="d-flex justify-content-center">
-                                <button className="btn-movies" onClick={() => addToList(movie)}>Add to List</button> 
-                                <button className="btn-movies" onClick={() => addToCart(movie)}>Add to Cart</button>
+                            <div className="row">
+                                <div className="fa-layers">
+                                    <span><FontAwesomeIcon className="movies-star" icon={faStar} size="6x" style={{ color: "#990000" }} /></span>
+                                    <span className="col-movies-vote"><span className="movies-vote">{movie.vote_average.toFixed(0)}</span></span>
+                                </div>
+                                <img
+                                    className="img-responsive"
+                                    src={`https://image.tmdb.org/t/p/w500${movie.poster_path}`}
+                                    alt={movie.title}
+                                />
+                            </div>
+                            <div className="row">
+                                <div className="d-flex justify-content-center">
+                                    <button className="btn-movies" onClick={() => addToList(movie)}>Add to List</button>
+                                    <button className="btn-movies" onClick={() => addToCart(movie)}>Add to Cart</button>
+                                </div>
                             </div>
                         </div>
                     ))}
-                </div>
+                </div> {/* closing row */}
             </div>
         </>
     );

@@ -56,63 +56,62 @@ export const PaymentForm = ({}) => {
     <div className="payment-form-container">
       <h2 className="payment-form-title">Card details</h2>
       <form onSubmit={handleSubmit}>
-        <div className="payment-container">
+        <div className="d-flex-payment-container">
           <div>
-            <label className="payment-form-label"htmlFor="cardHolderName">Name:<span style={{ color: "red" }}>*</span></label>
+            <label className="payment-form-label"htmlFor="cardHolderName"><span style={{ color: "red" }}>*</span></label>
             <input
               className="payment-form-input"
               type="text"
               id="cardHolderName"
-              name="cardHolderName" // Fix: Add name attribute for binding
+              name="cardHolderName" 
               placeholder="Cardholder's Name"
-              value={cardData.cardHolderName} // Fix: Bind value to state
+              value={cardData.cardHolderName} 
               onChange={handleChange}
               required
             />
           </div>
           <div>
-            <label className="payment-form-label" htmlFor="cardNumber">Number:<span style={{ color: "red" }}>*</span></label>
+            <label className="payment-form-label" htmlFor="cardNumber"><span style={{ color: "red" }}>*</span></label>
             <input
               className="payment-form-input"
               type="text"
               id="cardNumber"
-              name="cardNumber" // Fix: Add name attribute for binding
+              name="cardNumber" 
               placeholder="Card Number"
-              value={cardData.cardNumber} // Fix: Bind value to state
+              value={cardData.cardNumber} 
               onChange={handleChange}
               required
             />
           </div>
-          <div className="d-flex">
+          <div className="d-flex-payment-container">
           <div>
-            <label className="payment-form-label" htmlFor="expDate">EXP:<span style={{ color: "red" }}>*</span></label>
+            <label className="payment-form-label" htmlFor="expDate"><span style={{ color: "red" }}>*</span></label>
             <input
               className="exp-date-input"
               type="text"
               id="expDate"
-              name="expDate" // Fix: Add name attribute for binding
+              name="expDate" 
               placeholder="MM/YY"
-              value={cardData.expDate} // Fix: Bind value to state
+              value={cardData.expDate} 
               onChange={handleChange}
               required
             />
-          </div>
-          <div>
-            <label className="payment-form-label" htmlFor="cvv">CVV:<span style={{ color: "red" }}>*</span></label>
+          
+            <label className="payment-form-label" htmlFor="cvv"><span style={{ color: "red" }}>*</span></label>
             <input
               className="cvv-input"
               type="text"
               id="cvv"
-              name="cvv" // Fix: Add name attribute for binding
+              name="cvv" 
               placeholder="CVV"
-              value={cardData.cvv} // Fix: Bind value to state
+              value={cardData.cvv} 
               onChange={handleChange}
               required
             />
           </div>
           </div>
         </div> 
-        <button className="payment-button" type="submit">Save</button> {/* Fix: Add type="submit" */}
+        <button className="payment-button" type="submit">Save</button>
       </form>
     </div>
   );

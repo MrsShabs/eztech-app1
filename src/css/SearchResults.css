@@ -1,13 +1,17 @@
 
-.col-3-results-title {
-    font-size: 17px;
-    font-weight: bold;
-    text-align: left;
-    width: 150px;
-    height: 15px;
-    margin-right: 40px;
-    padding: 5px, 10px;
-    margin-left: 6px;
+.col-results-title {
+    font-size: 20px;
+    margin-left: 25px;
+    font-weight: 600;
+    margin-top: 20px;
+    margin-bottom: -10px;
+}
+
+.img-responsive-results {
+    display: block;
+    margin: 0 auto;
+    border-radius: 6px;
+    margin-left: 25px;
 }
 
 .search-results-movie-vote{
@@ -15,22 +19,11 @@
     width: 500px;
     height: 15px;
 }
-
-.col-3-results-raitings {
-    padding: 5px, 15px;
-    margin-top: 5px;
-    margin-right: 55px;
-    text-align: center;
-    
-
-}
-
 .search-results-movie-overview{
-    width: 500px;
+    width: 400px;
     height: 130px;
     padding: 5px;
 }
-
 .results-bt {
     background-color: rgb(145, 32, 32);
     border: none;
@@ -39,13 +32,11 @@
     border-radius: 0.5rem;
     cursor: pointer;
     font-size: 15px;
-    align-items: center;
     margin-top: 20px;
     margin-bottom: 5px;
     margin-right: 10px;
-    margin-left: 5px;
+    margin-left: 0px;
     width: 100px;
     height: 30px;
     text-align: center;
-    justify-content:center;
 }

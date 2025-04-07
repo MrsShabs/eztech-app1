@@ -2,6 +2,8 @@
     margin-top: 50px;
     display: block;
     justify-items: center;
+    align-items: center;
+
 }
 .message-box {
     display: flex;

@@ -9,7 +9,7 @@ export default function Support() {
         <h1 className="support-heading">Support</h1>
          <input type="text" placeholder={message} className="message-box"></input>
       
-      <form >
+      <form>
         <div className="supportForm">
             <div className="support-input">
               <label htmlFor="name">Name: <span style={{ color: "red" }}>*</span>
